@@ -1,8 +1,7 @@
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
-import com.gikk.twirk.commands.PatternCommandExample;
-import com.gikk.twirk.commands.PrefixCommandExample;
 import com.gikk.twirk.events.TwirkListener;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
@@ -24,12 +23,16 @@ public class SwishyModBot {
         String channel = "#" + scanner.nextLine();
 
         final Twirk twirk = new TwirkBuilder(channel, "SwishyModBot", "oauth:8hb84t3jjvkzfh2yxks4mfkup9kngp")
-                .setVerboseMode(true)	//We want to print everything we receive from Twitch
+                //	//We want to print everything we receive from Twitch
                 .build();				//Create the Twirk object
 
-        twirk.addIrcListener( getOnDisconnectListener(twirk) );
+        TwirkListener swish = new SwishyListener();
+        twirk.addIrcListener(swish);
+
+        /*twirk.addIrcListener( getOnDisconnectListener(twirk) );
         twirk.addIrcListener( new PatternCommandExample(twirk) );
         twirk.addIrcListener( new PrefixCommandExample(twirk) );
+        */
 
         System.out.println("\nTo exit this example, type .quit and press Enter\n");
 
