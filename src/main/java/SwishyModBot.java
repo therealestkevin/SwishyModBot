@@ -6,16 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-/**Simple example of how Twirk can be used. <br><br>
- *
- * Make sure that you replace the <code>SETTINGS.MY_NICK</code> and <code>SETTINGS.MY_PASS</code> with the
- * proper values. To generate a Twitch Irc password, visit
- * <a href="https://twitchapps.com/tmi/"> https://twitchapps.com/tmi/ </a>
- *
- * @author Gikkman
- *
- */
+
 public class SwishyModBot {
+
 
     public static void main(String[] args) throws IOException, InterruptedException{
         System.out.println("Welcome to SwishyModBot, a Twitch chat moderator bot. Enter channel to join (leave out the #):");
@@ -23,16 +16,11 @@ public class SwishyModBot {
         String channel = "#" + scanner.nextLine();
 
         final Twirk twirk = new TwirkBuilder(channel, "SwishyModBot", "oauth:8hb84t3jjvkzfh2yxks4mfkup9kngp")
-                //	//We want to print everything we receive from Twitch
                 .build();				//Create the Twirk object
 
         TwirkListener swish = new SwishyListener();
         twirk.addIrcListener(swish);
 
-        /*twirk.addIrcListener( getOnDisconnectListener(twirk) );
-        twirk.addIrcListener( new PatternCommandExample(twirk) );
-        twirk.addIrcListener( new PrefixCommandExample(twirk) );
-        */
 
         System.out.println("\nTo exit this example, type .quit and press Enter\n");
 

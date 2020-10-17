@@ -1,10 +1,25 @@
 import com.gikk.twirk.events.TwirkListener;
+import com.gikk.twirk.types.twitchMessage.TwitchMessage;
+import com.gikk.twirk.types.users.TwitchUser;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SwishyListener implements TwirkListener {
 
-    public void onAnything(String unformatedMessage){
+    private Map<Long, List<UserMessageEvent>> allMessages = new HashMap<>();
 
 
-        System.out.println(unformatedMessage);
+    public void onPrivMsg(TwitchUser sender, TwitchMessage message){
+
+    }
+
+    public Map<Long, List<UserMessageEvent>> getAllMessages() {
+        return allMessages;
+    }
+
+    public void setAllMessages(Map<Long, List<UserMessageEvent>> allMessages) {
+        this.allMessages = allMessages;
     }
 }
