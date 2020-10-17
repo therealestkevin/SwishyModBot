@@ -1,5 +1,7 @@
-package com.gikk.twirk;
-
+import com.gikk.twirk.Twirk;
+import com.gikk.twirk.TwirkBuilder;
+import com.gikk.twirk.commands.PatternCommandExample;
+import com.gikk.twirk.commands.PrefixCommandExample;
 import com.gikk.twirk.events.TwirkListener;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +16,7 @@ import java.util.Scanner;
  * @author Gikkman
  *
  */
-public class BotExample {
+public class SwishyModBot {
 
     public static void main(String[] args) throws IOException, InterruptedException{
         System.out.println("Welcome to SwishyModBot, a Twitch chat moderator bot. Enter channel to join (leave out the #):");
