@@ -1,7 +1,12 @@
 import com.gikk.twirk.events.TwirkListener;
 import com.gikk.twirk.types.twitchMessage.TwitchMessage;
 import com.gikk.twirk.types.users.TwitchUser;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Document.Type;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +22,27 @@ public class SwishyListener implements TwirkListener {
 
         curUserMessages  = allMessages.getOrDefault(sender.getUserID(), new ArrayList<>());
 
-        curUserMessages.add(new UserMessageEvent(sender.getDisplayName(), 0.00, message.getContent()));
+        try (LanguageServiceClient language = LanguageServiceClient.create()) {
+
+            Document doc = Document.newBuilder().setContent(message.getContent()).setType(Type.PLAIN_TEXT).build();
+
+            Sentiment sentiment = language.analyzeSentiment(doc).getDocumentSentiment();
+
+            float score = sentiment.getScore();
+            float magnitude = sentiment.getMagnitude();
+
+            double totalSent = score * magnitude;
+
+            curUserMessages.add(new UserMessageEvent(sender.getDisplayName(), totalSent, message.getContent()));
+
+            allMessages.put(sender.getUserID(), curUserMessages);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-        allMessages.put(sender.getUserID(), curUserMessages);
+
 
 
     }
