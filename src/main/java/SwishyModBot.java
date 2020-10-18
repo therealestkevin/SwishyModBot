@@ -1,9 +1,15 @@
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
 import com.gikk.twirk.events.TwirkListener;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,9 +44,19 @@ public class SwishyModBot {
         	//Connect to Twitch
 
 
-        Files.copy(new URL("https://tmi.twitch.tv/group/user/" + channelName + "/chatters").openStream(), Paths.get("."));
+        Files.copy(new URL("https://tmi.twitch.tv/group/user/" + channelName + "/chatters").openStream(), Paths.get("./mods.json"));
 
+
+        Gson gson = new Gson();
+
+        JsonObject mods= gson.fromJson(new FileReader("mods.json"), JsonObject.class);
         //As long as we don't type .quit into the command prompt, send everything we type as a message to twitch
+        JsonObject mod = (JsonObject) mods.get("chatters");
+        JsonElement realMods = mod.get("moderators");
+
+        Type listType = new TypeToken<List<String>>(){}.getType();
+
+        List<String> bools = new Gson().fromJson(realMods, listType);
 
         Thread.sleep(10000);
 
