@@ -4,32 +4,52 @@ import com.gikk.twirk.events.TwirkListener;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 
 public class SwishyModBot {
 
-
     public static void main(String[] args) throws IOException, InterruptedException{
         System.out.println("Welcome to SwishyModBot, a Twitch chat moderator bot. Enter channel to join (leave out the #):");
         Scanner scanner = new Scanner(new InputStreamReader(System.in, "UTF-8"));
-        String channel = "#" + scanner.nextLine();
+        String channelName = scanner.nextLine();
+        String channel = "#" + channelName;
 
         final Twirk twirk = new TwirkBuilder(channel, "SwishyModBot", "oauth:8hb84t3jjvkzfh2yxks4mfkup9kngp")
                 .build();				//Create the Twirk object
 
-        TwirkListener swish = new SwishyListener();
+        twirk.connect();
+
+        SwishyListener swish = new SwishyListener();
+
         twirk.addIrcListener(swish);
+
 
 
         System.out.println("\nTo exit this example, type .quit and press Enter\n");
 
-        twirk.connect();	//Connect to Twitch
+
+        String line;
+        	//Connect to Twitch
+
+
+        Files.copy(new URL("https://tmi.twitch.tv/group/user/" + channelName + "/chatters").openStream(), Paths.get("."));
 
         //As long as we don't type .quit into the command prompt, send everything we type as a message to twitch
-        String line;
-        while( !(line = scanner.nextLine()).matches(".quit") )
-            twirk.channelMessage(line);
+
+        Thread.sleep(10000);
+
+        Map<Long, List<UserMessageEvent>> curUsers = swish.getAllMessages();
+
+
+
+        //while( !(line = scanner.nextLine()).matches(".quit") )
+        //    twirk.channelMessage(line);
 
         scanner.close();	//Close the scanner
         twirk.close();		//Close the connection to Twitch, and release all resources

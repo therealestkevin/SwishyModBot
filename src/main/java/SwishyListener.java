@@ -47,6 +47,11 @@ public class SwishyListener implements TwirkListener {
 
     }
 
+    public void onWhisper(TwitchUser sender, TwitchMessage message){
+        String curMod = message.getContent();
+    }
+
+
     public Map<Long, List<UserMessageEvent>> getAllMessages() {
         return allMessages;
     }
