@@ -13,8 +13,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>7</source>
-                    <target>7</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -26,7 +26,31 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
+
+    <plugin>
+        <groupId>com.google.appengine</groupId>
+        <artifactId>appengine-maven-plugin</artifactId>
+        <version>1.9.82</version>
+    </plugin>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>libraries-bom</artifactId>
+                <version>12.1.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <dependencies>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-language</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.github.gikkman</groupId>
             <artifactId>Java-Twirk</artifactId>
@@ -37,6 +61,7 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.1</version>
         </dependency>
+
     </dependencies>
 
 </project>
