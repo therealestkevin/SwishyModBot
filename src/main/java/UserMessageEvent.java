@@ -1,9 +1,9 @@
 public class UserMessageEvent {
     private String displayName;
-    private double sentiment;
+    private float sentiment;
     private String message;
 
-    public UserMessageEvent(String displayName, double sentiment, String message) {
+    public UserMessageEvent(String displayName, float sentiment, String message) {
         this.displayName = displayName;
         this.sentiment = sentiment;
         this.message = message;
@@ -21,7 +21,7 @@ public class UserMessageEvent {
         return sentiment;
     }
 
-    public void setSentiment(double sentiment) {
+    public void setSentiment(float sentiment) {
         this.sentiment = sentiment;
     }
 
