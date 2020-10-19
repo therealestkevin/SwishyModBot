@@ -26,7 +26,7 @@ public class SwishyModBot {
         String channelName = scanner.nextLine();
         String channel = "#" + channelName;
 
-        final Twirk twirk = new TwirkBuilder(channel, "SwishyModBot", "oauth:8hb84t3jjvkzfh2yxks4mfkup9kngp")
+        final Twirk twirk = new TwirkBuilder(channel, "SwishyModBot", "Read Oauth.txt")
                 .build();				//Create the Twirk object
 
         twirk.connect();
